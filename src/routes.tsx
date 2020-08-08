@@ -9,9 +9,9 @@ import TeacherForm from './pages/TeacherForm'
  */
 
  function Routes() {
-   return (
+   return ( /* exact: caso não use, vai chamar a Landing sempre (junto com a rota correta), pois '/' é chamado em todas as rotas */
      <BrowserRouter>
-      <Route path="/" component={Landing} />
+      <Route path="/" exact component={Landing} />
       <Route path="/study" component={TeacherList} />
       <Route path="/give-classes" component={TeacherForm} />
      </BrowserRouter>
