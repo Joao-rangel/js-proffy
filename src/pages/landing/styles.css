@@ -16,6 +16,7 @@
 
 .hero-image {
   width: 100%;
+  max-height: 45vh;
 }
 
 .logo-container {
@@ -58,6 +59,7 @@
 
 .buttons-container a img {
   width: 4rem;
+  margin-right: 2rem;
 }
 
 .buttons-container a.study {
@@ -77,7 +79,7 @@
 }
 
 .total-connections {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 
   display: flex;
   align-items: center;
@@ -86,4 +88,50 @@
 
 .total-connections img {
   margin-left: 0.8rem;
+}
+
+@media (min-width: 1100px) { /* Display muda à partir de 1100 px */
+  #page-landing-content {
+    max-width: 1100px;
+
+    display: grid; /* display como uma tabela para organizar os elementos*/
+    grid-template-rows: 350px 1fr; /* priemira linha 350px, segunda se adapta */
+    grid-template-columns: 2fr 1fr 1.5fr;
+    grid-template-areas: "logo hero hero" "buttons buttons total";
+  }
+
+  .logo-container {
+    grid-area: logo;
+    align-self: center;
+    text-align: left;
+    margin: 0;
+  }
+
+  .logo-container h2 {
+    text-align: initial;
+    font-size: 3.6rem;
+  }
+
+  .logo-container img {
+    height: 100%;
+  }
+
+  .hero-image {
+    grid-area: hero;
+    justify-self: end;
+  }
+
+  .buttons-container {
+    grid-area: buttons;
+    justify-content: flex-start; /* alinhar na esquerda */
+  }
+
+  .buttons-container a {
+    font-size: 2.4rem;
+  }
+
+  .total-connections {
+    grid-area: total;
+    justify-self: end;
+  }
 }
