@@ -5,7 +5,7 @@ import PageHeader from '../../components/PageHeader'
 function TeacherForm() {
   return (
   <div id="page-teacher-form" className="container">
-    <PageHeader />
+    <PageHeader title="Ajude a mudar o mundo, um aluno de cada vez!" />
   </div>
   )
 }

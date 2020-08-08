@@ -7,7 +7,7 @@ import './styles.css'
 function TeacherList() {
   return (
     <div id="page-teacher-list" className="container">
-      <PageHeader />
+      <PageHeader title="Encontre seu proffy abaixo!" />
     </div>
   )
 }

@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom'
 import backIcon from '../../assets/images/icons/back.svg';
 import logoImg from '../../assets/images/logo.svg';
 
-function PageHeader() {
+interface PageHeaderProps { /* propriedade para definir var para o componente */
+  title: string;
+}
+
+/* React.FC = function component do typeScript, permite passar parâmetros */
+const PageHeader: React.FC<PageHeaderProps> = (props) => { /* props passadas na configuração da interface acima */
   return (
     <header className="page-header">
       <div className="top-bar-container">
@@ -15,7 +20,7 @@ function PageHeader() {
       </div>
 
       <div className="header-content">
-        <strong>Encontre seu proffy abaixo!</strong>
+        <strong>{props.title}</strong>
       </div>
     </header>
   )
