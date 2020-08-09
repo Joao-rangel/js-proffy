@@ -44,6 +44,7 @@ body {
 
 body, input, button, textarea {
   font: 500 1.6rem Poppins; /* 1 rem = 16px (tamanho padrão) mas nesse caso as fontes estão em 60% por isso, 1.6 para compensar */
+  color: var(--color-text-base);
 }
 
 .container{
