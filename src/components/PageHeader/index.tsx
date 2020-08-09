@@ -21,9 +21,9 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => { /* props passadas na 
 
       <div className="header-content">
         <strong>{props.title}</strong>
+        {props.children}
       </div>
 
-      {props.children}
     </header> /* props.children importa o conteúdo dentro da tag Pageheader onde foi chamada */
   )
 }
