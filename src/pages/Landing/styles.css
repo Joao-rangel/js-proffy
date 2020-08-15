@@ -16,7 +16,7 @@
 
 .hero-image {
   width: 100%;
-  max-height: 45vh;
+  max-height: 40vh;
 }
 
 .logo-container {
@@ -98,6 +98,11 @@
     grid-template-rows: 350px 1fr; /* priemira linha 350px, segunda se adapta */
     grid-template-columns: 2fr 1fr 1.5fr;
     grid-template-areas: "logo hero hero" "buttons buttons total";
+  }
+
+  .hero-image {
+    max-height: 50vh;
+    padding-left: 2rem;
   }
 
   .logo-container {

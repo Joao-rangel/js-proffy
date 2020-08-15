@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import PageHeader from '../../components/PageHeader'
 import Input from '../../components/Input'
-import './styles.css'
 
 import warningIcon from "../../assets/images/icons/warning.svg";
 import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
-function TeacherForm() {
+import './styles.css'
+
+function TeacherForm() { /* declarando itens da agenda dos professores */
+  const [scheduleItems, setScheduleItems] = useState([ /* useState permite atualizar a view poia o react o observa | useState tem um primeiro valor imutáveil e um segundo valor que quando declarado, substitui o primeiro. */
+    { week_day: 0, from: '', to: '' },
+  ])
+
+  function addNewScheduleItem() { /* não é possível usar push por conta do useState, mas pode-se copiar o valor da primeira array para dentro da segunda (que vai sibstituir a primeira) */
+    setScheduleItems([
+      ...scheduleItems,
+      { week_day: 0, from: '', to: '' }
+    ])
+  }
+
   return (
     <div id="page-teacher-form" className="container">
       <PageHeader
@@ -51,29 +63,34 @@ function TeacherForm() {
         <fieldset>
           <legend>
             Horários disponíveis
-            <button type="button">
+            <button type="button" onClick={addNewScheduleItem}>
               + Novo horário
             </button>
           </legend>
 
-          <Select
-            name="week-day"
-            label="Dia da semana"
-            options={[
-              { value: '0', label: 'Domingo' },
-              { value: '1', label: 'Segunda-feira' },
-              { value: '2', label: 'Terça-feira' },
-              { value: '3', label: 'Quarta-feira' },
-              { value: '4', label: 'Quinta-feira' },
-              { value: '5', label: 'Sexta-feira' },
-              { value: '6', label: 'Sábado' },
-            ]}
-          />
+          {scheduleItems.map(scheduleItem => { /* gera as inputs pra cada schedule enviado */
+            return ( /* key obrigatorio */
+              <div key={scheduleItem.week_day + scheduleItem.from} className="schedule-item">
+                <Select
+                  name="week-day"
+                  label="Dia da semana"
+                  options={[
+                    { value: '0', label: 'Domingo' },
+                    { value: '1', label: 'Segunda-feira' },
+                    { value: '2', label: 'Terça-feira' },
+                    { value: '3', label: 'Quarta-feira' },
+                    { value: '4', label: 'Quinta-feira' },
+                    { value: '5', label: 'Sexta-feira' },
+                    { value: '6', label: 'Sábado' },
+                  ]}
+                />
 
-          <Input name="from" label="Das" type="time" />
-          
-          <Input name="to" label="Até" type="time" />
+                <Input name="from" label="Das" type="time" />
 
+                <Input name="to" label="Até" type="time" />
+              </div>
+            );
+          })}
         </fieldset>
 
         <footer>
