@@ -33,7 +33,7 @@ function TeacherForm() {
         </fieldset>
 
         <fieldset>
-          <legend>horários disponíveis</legend>
+          <legend>Horários disponíveis</legend>
 
           <Input name="week_day" label="Dia da semana" />
           <Input name="from" label="Das" />
@@ -44,12 +44,12 @@ function TeacherForm() {
         <footer>
           <p>
             <img src={warningIcon} alt="Aviso importante" />
-          Importante! <br />
-          Preencha todos os dados
-        </p>
+              Importante! <br />
+              Preencha todos os dados
+          </p>
           <button type="button">
             Salvar cadastro
-        </button>
+          </button>
         </footer>
       </main>
     </div>
