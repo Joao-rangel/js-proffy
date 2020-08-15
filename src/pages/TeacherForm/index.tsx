@@ -6,6 +6,7 @@ import './styles.css'
 
 import warningIcon from "../../assets/images/icons/warning.svg";
 import Textarea from '../../components/Textarea';
+import Select from '../../components/Select';
 
 function TeacherForm() {
   return (
@@ -29,17 +30,49 @@ function TeacherForm() {
         <fieldset>
           <legend>Sobre a aula</legend>
 
-          <Input name="subject" label="Matéria" />
-          <Input name="cost" label="Valor hora-aula" />
+          <Select
+            name="subject"
+            label="Matéria"
+            options={[
+              { value: 'Física', label: 'Física' },
+              { value: 'Química', label: 'Química' },
+              { value: 'Matemática', label: 'Matemática' },
+              { value: 'Português', label: 'Português' },
+              { value: 'Biologia', label: 'Biologia' },
+              { value: 'História', label: 'História' },
+              { value: 'Geografia', label: 'Geografia' },
+            ]}
+          />
+
+          < Input name="cost" label="Valor hora-aula" />
 
         </fieldset>
 
         <fieldset>
-          <legend>Horários disponíveis</legend>
+          <legend>
+            Horários disponíveis
+            <button type="button">
+              + Novo horário
+            </button>
+          </legend>
 
-          <Input name="week_day" label="Dia da semana" />
-          <Input name="from" label="Das" />
-          <Input name="to" label="Até" />
+          <Select
+            name="week-day"
+            label="Dia da semana"
+            options={[
+              { value: '0', label: 'Domingo' },
+              { value: '1', label: 'Segunda-feira' },
+              { value: '2', label: 'Terça-feira' },
+              { value: '3', label: 'Quarta-feira' },
+              { value: '4', label: 'Quinta-feira' },
+              { value: '5', label: 'Sexta-feira' },
+              { value: '6', label: 'Sábado' },
+            ]}
+          />
+
+          <Input name="from" label="Das" type="time" />
+          
+          <Input name="to" label="Até" type="time" />
 
         </fieldset>
 
