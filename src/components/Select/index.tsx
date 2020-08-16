@@ -15,7 +15,7 @@ const Select: React.FC<SelectProps> = ({ label, name, options, ...rest }) => { /
   return ( /* React deixa usar estruturas de repetição como usado no select */
     <div className="select-block">
       <label htmlFor={name}>{label}</label>
-      <select id={name} defaultValue="" {...rest}>
+      <select id={name} value="" {...rest}>
         <option value="" disabled hidden>Selecione...</option>
 
         {options.map(option => {

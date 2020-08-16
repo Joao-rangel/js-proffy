@@ -8,8 +8,12 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
 import './styles.css'
+import api from '../../services/api';
+import { useHistory } from 'react-router-dom';
 
 function TeacherForm() { /* declarando itens da agenda dos professores */
+  const history = useHistory(); /* permite navegação pelo site com push */
+
   const [name, setName] = useState('') /* criação de estados para armazenar data */
   const [avatar, setAvatar] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
@@ -30,17 +34,34 @@ function TeacherForm() { /* declarando itens da agenda dos professores */
     ])
   }
 
-  function handleCreateClass(e: FormEvent) {
-    e.preventDefault() /* para não atualizar a pág quando o form for enviado */
+  function setScheduleItemValue(position: number, field: string, value: string) {
+    const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
+      if (index === position) {
+        return { ...scheduleItem, [field]: value } /* [field] para usar o nome da variável chamado na função */
+      }
+      return scheduleItem
+    })
+    setScheduleItems(updateScheduleItems)
+  }
 
-    console.log([
+  function handleCreateClass(e: FormEvent) { /* tenho que definir o formato deste evento */
+    e.preventDefault() /* para não atualizar a pág quando submit form for enviado */
+
+    api.post('classes', {
       name,
       avatar,
       whatsapp,
       bio,
-      subject,
-      cost
-    ]);
+      subject, /* quando é o mesmo nome, pode omitir */
+      cost: Number(cost),
+      schedule: scheduleItems, /* quando o nome é diferente, deve declarar */
+    }).then(() => { /* fazer algo caso conclua a ação (no caso, post) */
+      alert('Cadastro realizado com sucesso!')
+
+      history.push('/study') /* para redirecionar para outra pág */
+    }).catch(() => { /* fazer algo caso não conclua */
+      alert('Erro no cadastro!')
+    })
   }
 
   return (
@@ -55,9 +76,24 @@ function TeacherForm() { /* declarando itens da agenda dos professores */
           <fieldset>
             <legend>Seus dados</legend>
 
-            <Input name="name" label="Nome completo" value={name} onChange={(e) => { setName(e.target.value) }} />
-            <Input name="avatar" label="Avatar" value={avatar} onChange={(e) => { setAvatar(e.target.value) }} />
-            <Input name="whatsapp" label="Whatsapp" value={whatsapp} onChange={(e) => { setWhatsapp(e.target.value) }} />
+            <Input
+              name="name"
+              label="Nome completo"
+              value={name}
+              onChange={(e) => { setName(e.target.value) }}
+            />
+            <Input
+              name="avatar"
+              label="Avatar"
+              value={avatar}
+              onChange={(e) => { setAvatar(e.target.value) }}
+            />
+            <Input
+              name="whatsapp"
+              label="Whatsapp"
+              value={whatsapp}
+              onChange={(e) => { setWhatsapp(e.target.value) }}
+            />
             <Textarea name="bio" label="Biografia" value={bio} onChange={(e) => { setBio(e.target.value) }} />
 
           </fieldset>
@@ -88,16 +124,18 @@ function TeacherForm() { /* declarando itens da agenda dos professores */
             <legend>
               Horários disponíveis
               <button type="button" onClick={addNewScheduleItem}>
-                  + Novo horário
+                + Novo horário
               </button>
             </legend>
 
-            {scheduleItems.map(scheduleItem => { /* gera as inputs pra cada schedule enviado */
+            {scheduleItems.map((scheduleItem, index) => { /* gera as inputs pra cada schedule enviado */
               return ( /* key obrigatorio */
                 <div key={scheduleItem.week_day + scheduleItem.from} className="schedule-item">
                   <Select
                     name="week-day"
                     label="Dia da semana"
+                    value={scheduleItem.week_day}
+                    onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                     options={[
                       { value: '0', label: 'Domingo' },
                       { value: '1', label: 'Segunda-feira' },
@@ -109,9 +147,21 @@ function TeacherForm() { /* declarando itens da agenda dos professores */
                     ]}
                   />
 
-                  <Input name="from" label="Das" type="time" />
+                  <Input
+                    name="from"
+                    label="Das"
+                    type="time"
+                    value={scheduleItem.from}
+                    onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
+                  />
 
-                  <Input name="to" label="Até" type="time" />
+                  <Input
+                    name="to"
+                    label="Até"
+                    type="time"
+                    value={scheduleItem.to}
+                    onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
+                  />
                 </div>
               );
             })}
