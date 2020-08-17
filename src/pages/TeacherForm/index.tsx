@@ -7,9 +7,10 @@ import warningIcon from "../../assets/images/icons/warning.svg";
 import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
-import './styles.css'
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
+
+import './styles.css'
 
 function TeacherForm() { /* declarando itens da agenda dos professores */
   const history = useHistory(); /* permite navegação pelo site com push */
@@ -129,10 +130,10 @@ function TeacherForm() { /* declarando itens da agenda dos professores */
             </legend>
 
             {scheduleItems.map((scheduleItem, index) => { /* gera as inputs pra cada schedule enviado */
-              return ( /* key obrigatorio */
+              return ( /* key obrigatorio no map */
                 <div key={scheduleItem.week_day + scheduleItem.from} className="schedule-item">
                   <Select
-                    name="week-day"
+                    name="week_day"
                     label="Dia da semana"
                     value={scheduleItem.week_day}
                     onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}

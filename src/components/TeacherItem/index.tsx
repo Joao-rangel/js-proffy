@@ -4,31 +4,43 @@ import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
 
 import './styles.css'
 
-function TeacherItem() {
+export interface Teacher { /* feita separada para exportar para TeacherList */
+  id: number,
+  subject: string,
+  cost: number,
+  name: string,
+  avatar: string,
+  whatsapp: string,
+  bio: string
+}
+
+interface TeacherItemProps { /* declarar interface para inserir variáveis no DOM */
+  teacher: Teacher
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   return (
     <article className="teacher-item">
-    <header>
-      <img src="https://hermes.digitalinnovation.one/users/student/43e38df4-a634-4f5a-a1b3-8376b6f49812.jpg" alt="Joao Rangel"/>
-      <div>
-        <strong>João Rangel</strong>
-        <span>Física</span>
-      </div>
-    </header>
+      <header>
+        <img src={teacher.avatar} alt="Joao Rangel" />
+        <div>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
+        </div>
+      </header>
 
-    <p>
-      Especialista em física estática com experiencia em simulação computacional.
-    </p>
+      <p>{teacher.bio}</p>
 
-    <footer>
-      <p>
-        Valor/hora
-        <strong>R$ 70,00</strong>
-      </p>
-      <button type="button">
-        <img src={whatsappIcon} alt="whatsap" />
+      <footer>
+        <p>
+          Valor/hora
+        <strong>R$ {teacher.cost}</strong>
+        </p>
+        <button type="button">
+          <img src={whatsappIcon} alt="whatsap" />
         Entrar em contato
       </button>
-    </footer>
+      </footer>
     </article>
   );
 }
